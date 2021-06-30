@@ -1,7 +1,7 @@
 """ Класс списочного метода GroupList """
 
 from group_stat import constants
-from db import SqlQuery
+import db
 
 
 class GroupList:
@@ -38,7 +38,8 @@ class GroupList:
         return GET_GROUP_LIST_BASE + where_base
 
     def get(self):
-        sql_query = SqlQuery(self.query)
+        sql_query = db.SqlQuery(self.query)
         return sql_query.execute()
+
 
 GET_GROUP_LIST_BASE = """ SELECT "@Group", "ExternalId" FROM "Group" """

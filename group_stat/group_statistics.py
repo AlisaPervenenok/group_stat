@@ -1,5 +1,5 @@
 """ Класс работы со статистикой групп """
-from db import SqlQuery
+import db
 
 
 class GroupStatistics:
@@ -10,13 +10,12 @@ class GroupStatistics:
 
     def update(self):
         params = [self.members_count, self.group]
-        sql_query = SqlQuery(UPDATE_GROUP_STATISTICS, params)
-
+        sql_query = db.SqlQuery(UPDATE_GROUP_STATISTICS, params)
         return sql_query.execute()
 
     @staticmethod
     def get():
-        sql_query = SqlQuery(GET_GROUP_STATISTICS)
+        sql_query = db.SqlQuery(GET_GROUP_STATISTICS)
         return sql_query.execute()
 
 

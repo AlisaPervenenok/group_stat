@@ -1,7 +1,6 @@
 """ Класс для работы с объектом Group """
 
-
-from db import SqlQuery
+import db
 
 
 class Group:
@@ -12,8 +11,8 @@ class Group:
         if not self.filter_obj:
             return
 
-        query_params = [self.filter_obj.get('ExternalId')]
-        sql_query = SqlQuery(READ_GROUP, query_params)
+        query_params = [self.filter_obj.get('@Group')]
+        sql_query = db.SqlQuery(READ_GROUP, query_params)
 
         return sql_query.execute()
 
@@ -22,7 +21,7 @@ class Group:
             return
 
         query_params = [self.filter_obj.get('ExternalId')]
-        sql_query = SqlQuery(UPSERT_GROUP, query_params)
+        sql_query = db.SqlQuery(UPSERT_GROUP, query_params)
 
         return sql_query.execute()
 
@@ -30,12 +29,12 @@ class Group:
         if not self.filter_obj:
             return
 
-        query_params = [self.filter_obj.get('ExternalId')]
-        sql_query = SqlQuery(DELETE_GROUP, query_params)
+        query_params = [self.filter_obj.get('@Group')]
+        sql_query = db.SqlQuery(DELETE_GROUP, query_params)
 
         return sql_query.execute()
 
 
-READ_GROUP = """ SELECT * FROM "Group" WHERE """
+READ_GROUP = """ SELECT * FROM "Group" WHERE "@Group" = (?) """
 UPSERT_GROUP = """ INSERT INTO "Group" ("ExternalId") VALUES (?) """
-DELETE_GROUP = """ DELETE FROM "Group" WHERE"""
+DELETE_GROUP = """ DELETE FROM "Group" WHERE "@Group" = (?) """
